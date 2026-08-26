@@ -29,7 +29,7 @@ public class OrderService {
 
         //Idempotency
         if(orderRepository.existsByOrderId(event.getOrderId())){
-            log.info("Order already exists : {}", event.getOrderId());
+            //log.info("Order already exists : {}", event.getOrderId());
             return;
         }
 
@@ -40,7 +40,7 @@ public class OrderService {
         );
 
         orderRepository.save(order);
-        log.info("Order saved successfully: {}", event.getOrderId());
+        //log.info("Order saved successfully: {}", event.getOrderId());
     }
 
     //Get Order with Paginations
@@ -65,18 +65,10 @@ public class OrderService {
         return orderRepository.count();
     }
 
-//    //Today Count
-//    public long getTodaysCount(){
-//        LocalDate today = LocalDate.now();
-//        LocalDateTime start = today.atStartOfDay();
-//        LocalDateTime end = today.plusDays(1).atStartOfDay();
-//        return orderRepository.countAsPerCreated(start,end);
-//    }
-
     //daily Count
     public List<Map<String,Object>> getDailyOrderCount(){
         List<Object[]> result = orderRepository.findDailyCount();
-        log.info("Inside the getDailyOrderCount method :: ");
+        //log.info("Inside the getDailyOrderCount method :: ");
         //Stream Api is used only to transform
         // small query result into response format
         return result.stream().map(row->{
