@@ -1,11 +1,13 @@
 package com.kafka.demokafka.producer;
 
 import com.kafka.demokafka.model.OrderEvent;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class OrderProducer {
 
@@ -18,6 +20,7 @@ public class OrderProducer {
     }
 
     public void sendOrderEvent(OrderEvent orderEvent){
+        log.info("Inside the sendOrderEvent Method :: ");
         String orderId = UUID.randomUUID().toString();
         orderEvent.setOrderId(orderId);
         try{

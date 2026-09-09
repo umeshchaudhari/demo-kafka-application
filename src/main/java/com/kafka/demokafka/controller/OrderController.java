@@ -31,14 +31,16 @@ public class OrderController {
     @PostMapping
     public ResponseEntity<Map<String,Object>> createOrder(@RequestBody OrderEvent event){
         try {
+            log.info("Inside the createOrder Method :: ");
             orderProducer.sendOrderEvent(event);
             Map<String,Object> response = new HashMap<>();
             response.put("status","SUCCESS");
             response.put("message","Order sent successfully to Kafka");
             response.put("orderId", event.getOrderId());
-            //log.info("Print the Response :: " +response);
+            log.info("Print the Response :: " +response);
             return ResponseEntity.ok(response);
         } catch (RuntimeException e) {
+            log.info("Inside the catch block :: ");
             Map<String,Object> response = new HashMap<>();
             response.put("status","FAILED");
             response.put("message","Kafka is not start.Pls start and try again.");
@@ -61,19 +63,19 @@ public class OrderController {
         Page<OrderEntity> orders = orderService.getOrders(
                 page,size,customerName,minAmount,maxAmount
         );
-        //log.info("Print the Orders :: " +orders);
+        log.info("Print the Orders :: " +orders);
         return ResponseEntity.ok(orders);
     }
     //Total Count
     @GetMapping("/count")
     public ResponseEntity<Long> getTotalOrderCount(){
-        //log.info("Inside the getTotalOrderCount Method :: ");
+        log.info("Inside the getTotalOrderCount Method :: ");
         return ResponseEntity.ok(orderService.getTotalCount());
     }
     //Daily Count
     @GetMapping("/count/daily")
     public ResponseEntity<List<Map<String, Object>>> getDailyOrderCount(){
-        //log.info("Inside the getDailyOrderCount Method :: ");
+        log.info("Inside the getDailyOrderCount Method :: ");
         return ResponseEntity.ok(orderService.getDailyOrderCount());
     }
     //Daily Count
