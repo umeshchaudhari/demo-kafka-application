@@ -25,10 +25,10 @@ public class OrderService {
     }
     @Transactional
     public void saveOrder(OrderEvent event){
-
+        log.info("Inside the saveOrder : {}", event);
         //Idempotency
         if(orderRepository.existsByOrderId(event.getOrderId())){
-            //log.info("Order already exists : {}", event.getOrderId());
+            log.info("Order already exists : {}", event.getOrderId());
             return;
         }
 
@@ -39,7 +39,7 @@ public class OrderService {
         );
 
         orderRepository.save(order);
-        //log.info("Order saved successfully: {}", event.getOrderId());
+        log.info("Order saved successfully: {}", event.getOrderId());
     }
 
     //Get Order with Paginations
@@ -67,7 +67,8 @@ public class OrderService {
     //daily Count
     public List<Map<String,Object>> getDailyOrderCount(){
         List<Object[]> result = orderRepository.findDailyCount();
-        //log.info("Inside the getDailyOrderCount method :: ");
+        log.info("Inside the getDailyOrderCount method :: ");
+
         //Stream Api is used only to transform
         // small query result into response format
         return result.stream().map(row->{
