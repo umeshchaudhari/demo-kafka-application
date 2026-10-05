@@ -20,7 +20,7 @@ public class OrderProducer {
     }
 
     public void sendOrderEvent(OrderEvent orderEvent){
-        log.info("Inside the sendOrderEvent Method :: ");
+        //log.info("Inside the sendOrderEvent Method :: ");
         String orderId = UUID.randomUUID().toString();
         orderEvent.setOrderId(orderId);
         try{
