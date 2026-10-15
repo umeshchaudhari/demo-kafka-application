@@ -40,7 +40,7 @@ public class OrderController {
         try {
             //log.info("Inside the createOrder Method :: ");
             String decryptedJson =
-                    encryptionUtil.decrypt(request.getPayload());
+                    encryptionUtil.decrypt(request.getData());
 
             OrderEvent event =
                     objectMapper.readValue(
@@ -68,7 +68,7 @@ public class OrderController {
             );
         } catch (Exception e) {
 
-            log.error("Error decrypting order request", e);
+//            log.error("Error decrypting order request", e);
 
             Map<String, Object> response = new HashMap<>();
 
@@ -102,7 +102,7 @@ public class OrderController {
             );
             return encryptedResponse(orders);
         } catch (Exception e) {
-            log.error("Error while fetching orders", e);
+//            log.error("Error while fetching orders", e);
 
             return encryptedResponse(
                     Map.of(
@@ -123,7 +123,7 @@ public class OrderController {
             Long count = orderService.getTotalCount();
             return encryptedResponse(Map.of("count", count));
         } catch (Exception e) {
-            log.error("Error while getting order count", e);
+//            log.error("Error while getting order count", e);
 
             return encryptedResponse(
                     Map.of("status", "FAILED", "message", "Unable to get order count"),
@@ -141,7 +141,7 @@ public class OrderController {
                     orderService.getDailyOrderCount();
             return encryptedResponse(dailyCount);
         } catch (Exception e) {
-            log.error("Error while getting daily order count", e);
+//            log.error("Error while getting daily order count", e);
 
             return encryptedResponse(
                     Map.of(
@@ -195,7 +195,7 @@ public class OrderController {
 
         } catch (Exception e) {
 
-            log.error("Error encrypting response", e);
+//            log.error("Error encrypting response", e);
 
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)

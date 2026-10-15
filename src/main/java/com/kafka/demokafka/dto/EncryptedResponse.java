@@ -2,17 +2,17 @@ package com.kafka.demokafka.dto;
 
 public class EncryptedResponse {
 
-    private String response;
+    private String data;
 
-    public EncryptedResponse(String response) {
-        this.response = response;
+    public EncryptedResponse(String data) {
+        this.data = data;
     }
 
-    public String getResponse() {
-        return response;
+    public String getData() {
+        return data;
     }
 
-    public void setResponse(String response) {
-        this.response = response;
+    public void setData(String data) {
+        this.data = data;
     }
 }
