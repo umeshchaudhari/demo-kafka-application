@@ -5,12 +5,13 @@ import com.kafka.demokafka.dto.LoginRequestDto;
 import com.kafka.demokafka.entity.RegisterRequest;
 import com.kafka.demokafka.entity.UserEntity;
 import com.kafka.demokafka.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+@Slf4j
 @Service
 public class AuthService {
 
@@ -29,6 +30,7 @@ public class AuthService {
     }
 
     public void register(RegisterRequest registerRequest){
+//        log.info("Inside the register method :: {}",registerRequest);
         if(userRepository.findByUsername(registerRequest.getUsername()).isPresent()){
             throw new RuntimeException("Username already exists");
         }
@@ -37,7 +39,14 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
 
         user.setRole("USER");
-        userRepository.save(user);
+        //userRepository.save(user);
+        UserEntity savedUser = userRepository.save(user);
+        userRepository.flush();
+
+//        log.info(
+//                "User saved successfully with ID: {}",
+//                savedUser.getId()
+//        );
     }
 
     public String login(LoginRequestDto requestDto){

@@ -3,6 +3,7 @@ package com.kafka.demokafka.controller;
 import com.kafka.demokafka.dto.EncryptedRequest;
 import com.kafka.demokafka.dto.EncryptedResponse;
 import com.kafka.demokafka.utility.EncryptionUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +14,7 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/encryption")
 public class EncryptionController {
@@ -30,6 +32,8 @@ public class EncryptionController {
     @PostMapping("/encrypt")
     public ResponseEntity<EncryptedResponse> encrypt(
             @RequestBody JsonNode request) {
+
+//        log.info("Inside the encrypt API Method {} ");
 
         try {
             // Convert incoming JSON to String
@@ -55,7 +59,7 @@ public class EncryptionController {
         try {
             // Decrypt
             String decryptedJson =
-                    encryptionUtil.decrypt(request.getPayload());
+                    encryptionUtil.decrypt(request.getData());
 
             // Convert decrypted JSON back to JSON object
             JsonNode jsonNode =

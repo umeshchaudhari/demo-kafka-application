@@ -2,13 +2,13 @@ package com.kafka.demokafka.dto;
 
 public class EncryptedRequest {
 
-    private String payload;
+    private String data;
 
-    public String getPayload() {
-        return payload;
+    public String getData() {
+        return data;
     }
 
-    public void setPayload(String payload) {
-        this.payload = payload;
+    public void setData(String data) {
+        this.data = data;
     }
 }
